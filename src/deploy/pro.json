@@ -1,0 +1,18 @@
+{
+  "apps": [{
+      "name": "sugerpocket.dev",
+      "max_memory_restart": "512M",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss SSS",
+      "script": "./server/app.js",
+      "out_file": "/var/log/rocket.chat/app.log",
+      "error_file": "/var/log/rocket.chat/err.log",
+      "port": "8080",
+      "env": {
+        "CDN_PREFIX": "//dbde4sd21oahf.cloudfront.net",
+        "MONGO_URL": "mongodb://localhost:27017/rocketchat",
+        "MONGO_OPLOG_URL": "mongodb://localhost:27017/local",
+        "ROOT_URL": "http://rocket.chat",
+        "PORT": "8080"
+      }
+    }]
+}

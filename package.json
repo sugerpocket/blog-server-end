@@ -1,0 +1,41 @@
+{
+  "name": "sugerpocket",
+  "version": "1.0.0",
+  "description": "personal blog create with vue.js",
+  "main": "index.js",
+  "scripts": {
+    "server.dev": "node ./server/app.js",
+    "server.pro": "pm2 ./server/config/pro.json",
+    "client.dev": "webpack-dev-server --hot --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sugerPocket/sugerpocket-blog.git"
+  },
+  "keywords": [
+    "vue.js",
+    "node.js",
+    "sugerpocket",
+    "blog",
+    "mysql"
+  ],
+  "author": "sugerpocket",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sugerPocket/sugerpocket-blog/issues"
+  },
+  "homepage": "https://github.com/sugerPocket/sugerpocket-blog#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "co": "^4.6.0",
+    "koa": "^2.2.0",
+    "koa-router": "^7.1.1",
+    "koa-session": "^5.0.0",
+    "koa2": "^2.0.0-alpha.7",
+    "mysql": "^2.13.0",
+    "pm2": "^2.4.6"
+  },
+  "devDependencies": {
+    "babel-register": "^6.24.1"
+  }
+}
