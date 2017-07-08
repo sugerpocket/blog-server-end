@@ -15,6 +15,11 @@ function createOne(tagname, connection) {
   return query(sql, values, connection);
 }
 
+/**
+ * 获取所有 tags
+ * @param {Connection} connection 
+ * @return {Promise<object>}
+ */
 function retrieveAll(connection) {
   const sql = 
     `select * from ${table} `;
@@ -22,6 +27,11 @@ function retrieveAll(connection) {
   return query(sql, values, connection);
 }
 
+/**
+ * 根据 id 获取某一 tagname
+ * @param {Number} tag_id tag 的唯一标识
+ * @param {Connection} connection 
+ */
 function retrieveOneById(tag_id, connection) {
   const sql =
     `select * from ${table} ` +
@@ -29,3 +39,9 @@ function retrieveOneById(tag_id, connection) {
   const values = [tag_id];
   return query(sql, values, connection);
 }
+
+module.exports = {
+  retrieveAll,
+  retrieveOneById,
+  createOne,
+};

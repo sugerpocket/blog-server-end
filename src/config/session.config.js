@@ -9,6 +9,7 @@ const CONFIG = {
 };
 
 function configSession(app) {
+  app.keys = ['sugerpocket'];
   app.use(session(CONFIG, app));
 }
 

@@ -22,6 +22,7 @@ class ResBody {
     const { start, userMeta } = ctx.state;
     return new ResBody({
       start,
+      status,
       end,
       stack,
       msg,
@@ -47,6 +48,7 @@ class ResBody {
     const { start, userMeta } = ctx.state;
     return new ResBody({
       start,
+      status,
       end,
       msg,
       data,

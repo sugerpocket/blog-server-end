@@ -5,15 +5,9 @@ const router = require('koa-router')({
   prefix: '/user'
 });
 
-function toInt(param, next) {
-  console.log(param);
-  next();
-}
-
 router
-  .param('param', toInt)
-  .get('/login', user.login)
-  .get('/register', user.register);
+  .post('/login', user.login)
+  .post('/register', user.register);
 
 module.exports = (app) => {
   app.use(router.routes());

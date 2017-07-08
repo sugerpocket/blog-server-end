@@ -6,10 +6,10 @@ create table users(
   username char(18) not null UNIQUE KEY,
   email varchar(64) not null UNIQUE KEY,
   nickname char(12) not null,
-  password char(18) not null,
+  password char(64) not null,
   is_admin bool not null default false,
   join_time datetime not null default current_timestamp,
-  avatar varchar(64) not null,
+  avatar varchar(64),
   github varchar(64)
 );
 
@@ -49,3 +49,5 @@ create table article_tags(
   FOREIGN KEY (article_id) REFERENCES articles(article_id),
   FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 );
+
+insert into users(username, email, password, nickname) values ('sugerpocket', 'mymikotomisaka@gmail.com', '8a52dd784469f73b364245d78373282b', 'sugerpocket');

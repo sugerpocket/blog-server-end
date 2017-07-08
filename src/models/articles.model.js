@@ -67,7 +67,7 @@ function updateOne(article_id, meta, connection) {
  * @param {Connection} connection
  * @return {Promise<object>} 
  */
-function deleteOne(article_id, connection) {
+function removeOne(article_id, connection) {
   const sql =
     `delete from ${table} ` +
     `where article_id = ?`;

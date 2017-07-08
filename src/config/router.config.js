@@ -3,7 +3,9 @@ const router = require('koa-router')({
 });
 
 const routes = [
-  'user'
+  'user',
+  'article',
+  'tag'
 ];
 
 /**

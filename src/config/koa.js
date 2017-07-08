@@ -1,4 +1,5 @@
 const Koa = require('koa2');
+const bodyParser = require('koa-bodyparser');
 const app = new Koa();
 const { requireAuthentication, loadUser } = require('./auth.config');
 const routers = require('./router.config');
@@ -16,16 +17,16 @@ const config = require(`./`);
  */
 function configServer(app) {
   configRequestStartRecord(app);
+  configMiddlewares(app);
   configErrorHandler(app);
   configSession(app);
   configAuth(app);
   configRouters(app);
   return () => {
-    app.listen(config.port, () => {
+    return app.listen(config.port, () => {
       console.log('当前环境为：' +　app.env);
       console.log('监听的端口号是：' + config.port);
     });
-    return app;
   };
 }
 
@@ -67,6 +68,15 @@ function configAuth(app) {
  */
 function configRouters(app) {
   routers(app);
+}
+
+/**
+ * 挂载普通中间件
+ * 
+ * @param {Application} app
+ */
+function configMiddlewares(app) {
+  app.use(bodyParser());
 }
 
 module.exports = configServer(app);
