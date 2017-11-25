@@ -1,53 +1,44 @@
 const supertest = require('supertest');
 const expect = require('chai').expect;
 
-async function login(request) {
-  await
-    request
-      .post('/api/user/login')
-      .send({
+function login(request) {
+  const api = '/api/user/login';
+
+  describe(`test ${api}`, function() {
+    it('密码错误', async () => {
+      const data = {
         username: 'sugerpocket',
-        password: 'dtlzdxyw0126.'
-      })
-      .expect(304)
-      .then(res => {
-        expect(res.body.status).to.equal('OK');
-        expect(res.body.data).to.be.a('object');
-      });
+        password: 'dtl19970126',
+      };
+      const res = await request.post(api).send(data);
+      expect(res.status).to.equal(400);
+      expect(res.body.status).to.equal('BAD_DATA');
+      expect(res.body.data).to.equal(null);
+    });
 
-  // await new Promise((resolve, reject) => {
-  //   it ('should be "wrong password"', done => {
-  //     const data = {
-  //       username: 'sugerpocket',
-  //       password: 'dtl19970126'
-  //     };
-
-  //     request
-  //       .post('/api/user/login')
-  //       .send(data)
-  //       .expect(200)
-  //       .end((err, res) => {
-  //         expect(res.body.status).to.equal('BAD_DATA');
-  //         expect(res.body.data).to.equal(null);
-  //         resolve();
-  //         done();
-  //       });
-  //   });
-  // });
+    it('用户登陆', async () => {
+      const data = {
+        username: 'sugerpocket',
+        password: 'dtlzdxyw0126.',
+      };
+      const res = await request.post(api).send(data);
+      expect(res.status).to.equal(200);
+      expect(res.body.status).to.equal('OK');
+    });
+  });
 }
 
 function register(request) {
-  return new Promise((resolve, reject) => {
-    request
-      .post('/register')
+  const api = '/register';
+  describe(`test ${api}`, function() {
+    it('没有这个接口', async () => {
+      const res = await request.post(api);
+      expect(res.status).to.equal(404);
+    });
   });
 }
 
 module.exports = async (request) => {
-  await new Promise((resolve, reject) => {
-    describe('test user api', async done => {
-      await login(request);
-      resolve();
-    });
-  });
+  await login(request);
+  await register(request);
 };

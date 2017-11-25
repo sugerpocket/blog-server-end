@@ -3,7 +3,7 @@ const table = 'tags';
 
 /**
  * 创建一个 tag
- * @param {String} tagname 
+ * @param {string} tagname 
  * @param {Connection} connection 
  */
 function createOne(tagname, connection) {
@@ -29,7 +29,7 @@ function retrieveAll(connection) {
 
 /**
  * 根据 id 获取某一 tagname
- * @param {Number} tag_id tag 的唯一标识
+ * @param {number} tag_id tag 的唯一标识
  * @param {Connection} connection 
  */
 function retrieveOneById(tag_id, connection) {

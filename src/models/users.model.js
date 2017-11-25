@@ -17,7 +17,7 @@ function createOne(user, connection) {
 
 /**
  * 根据用户名获取用户信息
- * @param {String} username 
+ * @param {string} username 
  * @param {Connection} connection 
  * @return {Promise<object>}
  */
@@ -31,7 +31,7 @@ function retrieveOneByName(username, connection) {
 
 /**
  * 根据用户 id 获取用户信息
- * @param {String} uid 
+ * @param {string} uid 
  * @param {Connection} connection 
  * @return {Promise<object>}
  */
@@ -57,7 +57,7 @@ function retrieveAll(connection) {
 
 /**
  * 更新用户信息
- * @param {String} uid 
+ * @param {string} uid 
  * @param {object} meta 
  * @param {Connection} connection 
  * @return {Promise<Boolean>}

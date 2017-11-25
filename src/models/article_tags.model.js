@@ -6,7 +6,7 @@ const articles = 'articles';
 
 /**
  * 创建对应的 article tags 记录
- * @param {Number} article_id 
+ * @param {number} article_id 
  * @param {Array<Number>} tag_ids 
  * @param {Connection} connection
  * @return {Promise<Boolean>}
@@ -23,7 +23,7 @@ function createTagRecords(article_id, tag_ids, connection) {
 
 /**
  * 根据 article 获取 tags
- * @param {Number} article_id 
+ * @param {number} article_id 
  * @param {Connection} connection
  * @return {Array<String>}
  */
@@ -38,7 +38,7 @@ function retrieveAllByArticle(article_id, connection) {
 
 /**
  * 删除所有关联 article 的 tags
- * @param {Number} article_id 
+ * @param {number} article_id 
  * @param {Connection} connection
  * @return {Promise<Boolean>}
  */

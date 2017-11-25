@@ -3,12 +3,12 @@ const table = 'articles';
 
 /**
  * 新建 blog 文章
- * @param {String} title 
- * @param {String} description 
- * @param {String} content 
- * @param {Number} author_id 
+ * @param {string} title 
+ * @param {string} description 
+ * @param {string} content 
+ * @param {number} author_id 
  * @param {Connection} connection
- * @return {Promise<Boolean>}
+ * @return {Promise<boolean>}
  */
 function createOne(title, description, content, author_id, connection) {
   const sql = 
@@ -22,7 +22,7 @@ function createOne(title, description, content, author_id, connection) {
 /**
  * 获取所有 blog 文章的大概信息
  * @param {Connection} connection
- * @return {Promise<Array<object>>} 
+ * @return {Promise<object[]>} 
  */
 function retrieveAll(connection) {
   const sql =
@@ -33,7 +33,7 @@ function retrieveAll(connection) {
 
 /**
  * 获取一篇 blog 文章的详细内容
- * @param {Number} article_id 
+ * @param {number} article_id 
  * @param {Connection} connection
  * @return {object}
  */
@@ -47,10 +47,10 @@ function retrieveById(article_id, connection) {
 
 /**
  * 更新一篇 blog 文章
- * @param {Number} article_id 
+ * @param {number} article_id 
  * @param {object} meta 
  * @param {Connection} connection
- * @return {Promise<Boolean>}
+ * @return {Promise<boolean>}
  */
 function updateOne(article_id, meta, connection) {
   const sql =
@@ -63,7 +63,7 @@ function updateOne(article_id, meta, connection) {
 
 /**
  * 删除一篇 blog 文章
- * @param {Number} article_id 
+ * @param {number} article_id 
  * @param {Connection} connection
  * @return {Promise<object>} 
  */

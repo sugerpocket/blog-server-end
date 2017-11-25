@@ -1,5 +1,4 @@
 const tag = require('../controllers/tag.ctrl');
-const ResBody = require('../utils/ResBody');
 
 const router = require('koa-router')({
   prefix: '/article'

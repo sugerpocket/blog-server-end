@@ -1,4 +1,4 @@
-const ResBody = require('../utils/ResBody');
+const res = require('../utils/response');
 
 const authWhiteList = [
   '/api/user/login'

@@ -7,18 +7,10 @@ const testModules = [
   'article'
 ];
 
-async function test() {
+describe('启动测试', function (done) {
   for (let module of testModules) {
-    const test = require('./specs/' + module + '.spec');
-    await test(request);
+    describe(`test ${module} api`, function() {
+      return require('./specs/' + module + '.spec')(request);
+    });
   }
-  return true;
-}
-
-test()
-  .then(val => {
-    console.log('test end!');
-  })
-  .catch(e => {
-    console.log('test failed!\n', e);
-  });
+});
