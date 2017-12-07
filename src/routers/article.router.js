@@ -10,7 +10,7 @@ router
   .get('/', article.retrieveAll)
   .post('/', validator, isDuplicated, article.createOne)
   .get('/:articleId', article.retrieveOneDetail)
-  .put('/:articleId', validator, isAuthor, article.updateOne)
+  .put('/:articleId', validator, isAuthor, isDuplicated, article.updateOne)
   .delete('/:articleId', isAuthor, article.deleteOne);
 
 module.exports = (app) => {

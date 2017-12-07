@@ -1,5 +1,5 @@
 const md5 = require('md5');
-const user = require('../models/users.model');
+const users = require('../models/users.model');
 const res = require('../utils/response');
 const file = require('../services/file.service');
 const Context = require('koa/lib/context');
@@ -8,7 +8,7 @@ async function login(ctx, next) {
   let { username, password } = ctx.request.body;
 
   password = md5(password);
-  const result = await user.retrieveOneByName(username);
+  const result = await users.retrieveOneByName(username);
   if (!result.length)
     throw res.error(ctx, null, '用户不存在');
   else if (result[0].password !== password)
@@ -22,7 +22,7 @@ async function login(ctx, next) {
 
 async function register(ctx, next) {
   const user = ctx.request.body;
-  const result = await user.createOne(user);
+  const result = await users.createOne(user);
 
   ctx.body = res.create(ctx, result, '注册成功');
 }
@@ -30,7 +30,7 @@ async function register(ctx, next) {
 async function getAvatar(ctx, next) {
   const { username } = ctx.request.params;
   try {
-    ctx.body = file.get(`avatars/${uid}`);
+    ctx.body = await file.get(`avatars/${uid}`);
   } catch(e) {
     throw res.error(ctx, e, '找不到用户头像', 404);
   }
@@ -38,7 +38,7 @@ async function getAvatar(ctx, next) {
 
 async function update(ctx, next) {
   const meta = ctx.request.body;
-  user.updateOne(uid, meta);
+  await user.updateOne(uid, meta);
   delete meta.password;
   throw res.create(ctx, meta, '更新成功');
 }
@@ -46,7 +46,7 @@ async function update(ctx, next) {
 async function updateAvatar(ctx, next) {
   const { uid } = ctx.session.userMeta;
   if (ctx.avatar) {
-    file.upload(`avatars/${uid}`);
+    await file.upload(`avatars/${uid}`);
   }
 }
 

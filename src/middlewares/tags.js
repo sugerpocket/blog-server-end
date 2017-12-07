@@ -23,19 +23,24 @@ async function exists(ctx, next) {
  * @param {function} next 
  */
 async function isDuplicated(ctx, next) {
-  const tagName = ctx.request.body
+  const { tagName } = ctx.request.body;
   const uid = ctx.session.userMeta.user_id;
 
-  const result = tags.retrieveOne(uid, tagName);
+  const result = await tags.retrieveOne(uid, tagName);
   if (result[0]) throw res.error(ctx, null, '已存在的 tag');
 
   return next();
 }
 
 const validator = validate('body', {
-  type: 'string',
-  minLength: 1,
-  maxLength: 12
+  required: ['tagName'],
+  properties: {
+    tagName: {
+      type: 'string',
+      minLength: 1,
+      maxLength: 12
+    }
+  }
 });
 
 module.exports = {

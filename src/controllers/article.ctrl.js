@@ -56,13 +56,12 @@ async function updateOne(ctx, next) {
   const { articleId } = ctx.params;
   const authorId = ctx.session.userMeta.user_id;
 
-  let result = await articles.retrieveById(articleId);
-
-  result = await articles.updateOne(article_id, { title, description, content });
+  // TODO: 数据同步
+  result = await articles.updateOne(articleId, { title, description, content });
 
   if (Array.isArray(tags)) {
     result = await article_tags.deleteAllByArticle(articleId);
-    result = await article_tags.createTagRecords(articleId, tags);
+    result = await article_tags.createTagRecords(articleId, authorId, tags);
   }
 
   result = await articles.retrieveById(articleId);
@@ -71,6 +70,7 @@ async function updateOne(ctx, next) {
   const author = result[0];
   article.tags = await article_tags.retrieveAllByArticle(articleId);
   article.author = author;
+  delete author.password;
 
   ctx.body = res.create(ctx, article, '修改成功');
 }

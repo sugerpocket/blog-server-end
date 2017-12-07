@@ -16,9 +16,10 @@ function createTagRecords(article_id, user_id, tags, connection) {
   const sql = tags.map(tag_name => 
     `insert into ${table} ` +
     `(article_id, user_id, tag_name) ` +
-    `values (${article_id},${user_id},${tag_name});`
+    `values (${article_id},${user_id},'${tag_name}');`
   ).reduce((pre, cur) => pre + cur, '');
   const values = [];
+  if (!sql) return [];
   return query(sql, values, connection);
 }
 
@@ -32,7 +33,7 @@ function retrieveAllByArticle(article_id, connection) {
   const sql =
     `select t.tag_name ` +
     `from ${table} a, ${tags} t ` +
-    `where a.article_id = ?`;
+    `where a.article_id = ? `;
   const values = [article_id];
   return query(sql, values, connection);
 }
@@ -46,9 +47,9 @@ function retrieveAllByArticle(article_id, connection) {
  */
 function retrieveOne(article_id, user_id, tag_name, connection) {
   const sql =
-    `select a.* from ${table} a ` +
-    `where a.tag_id = ? and a.user_id = ? and a.article_id = ?`;
-  const values = [tag_id, user_id, article_id];
+    `select a.* from ${table} ` +
+    `where tag_name = ? and user_id = ? and article_id = ?`;
+  const values = [tag_name, user_id, article_id];
   return query(sql, values, connection);
 }
 
@@ -62,9 +63,9 @@ function retrieveOne(article_id, user_id, tag_name, connection) {
  */
 function deleteOne(article_id, user_id, tag_name, connection) {
   const sql =
-    `delete from ${table} a ` +
-    `where a.tag_id = ? and a.user_id = ? and a.article_id = ?`;
-  const values = [tag_id, user_id, article_id];
+    `delete from ${table} ` +
+    `where tag_name = ? and user_id = ? and article_id = ?`;
+  const values = [tag_name, user_id, article_id];
   return query(sql, values, connection);
 }
 
@@ -77,8 +78,8 @@ function deleteOne(article_id, user_id, tag_name, connection) {
 function deleteAllByArticle(article_id, connection) {
   const sql =
     `delete ` +
-    `from ${table} a ` +
-    `where a.article_id = ?`;
+    `from ${table} ` +
+    `where article_id = ?`;
   const values = [article_id];
   return query(sql, values, connection)
 }

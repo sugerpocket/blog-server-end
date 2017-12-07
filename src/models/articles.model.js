@@ -72,7 +72,7 @@ function retrieveByTitle(title, connection) {
  */
 function updateOne(article_id, meta, connection) {
   const sql =
-    `update ${table}` +
+    `update ${table} ` +
     `set ? ` +
     `where article_id = ?`;
   const values = [meta, article_id];

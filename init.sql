@@ -1,4 +1,4 @@
-CREATE DATABASE sugerpocket_test;
+CREATE DATABASE sugerpocket_test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 use sugerpocket_test;
 
 create table users(
@@ -6,7 +6,7 @@ create table users(
   username char(18) not null UNIQUE KEY,
   email varchar(64) not null UNIQUE KEY,
   nickname char(12) not null,
-  password char(18) not null,
+  password char(32) not null,
   is_admin bool not null default false,
   join_time timestamp not null default CURRENT_TIMESTAMP,
   avatar varchar(64),
@@ -41,14 +41,14 @@ create table comments(
 create table tags(
   user_id int not null,
   tag_name char(12) not null,
-  PRIMARY KEY (user_id, tagname),
-  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  PRIMARY KEY (user_id, tag_name),
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 create table article_tags(
   article_id int not null,
   user_id int not null,
-  tag_name int not null,
+  tag_name char(12) not null,
   FOREIGN KEY (article_id) REFERENCES articles(article_id),
   FOREIGN KEY (user_id, tag_name) REFERENCES tags(user_id, tag_name),
   PRIMARY KEY (article_id, user_id, tag_name)
