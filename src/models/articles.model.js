@@ -1,5 +1,6 @@
 const { query }  = require('../services/db.service');
 const table = 'articles';
+const users = 'users';
 
 /**
  * 新建 blog 文章
@@ -26,7 +27,10 @@ function createOne(title, description, content, author_id, connection) {
  */
 function retrieveAll(connection) {
   const sql =
-    `select * from ${table}`;
+    `select a.article_id, a.title, a.description, a.update_time, a.create_time, ` +
+    `u.user_id as author_id, u.username as author_name, u.nickname as author_nickname ` +
+    `from ${table} a, ${users} u ` + 
+    `where a.author_id = u.user_id`;
   const values = [];
   return query(sql, values, connection);
 }
@@ -42,6 +46,20 @@ function retrieveById(article_id, connection) {
     `select * from ${table} ` +
     `where article_id = ?`;
   const values = [article_id];
+  return query(sql, values, connection);
+}
+
+/**
+ * 获取一篇 blog 文章的详细内容
+ * @param {string} title 
+ * @param {Connection} connection
+ * @return {object}
+ */
+function retrieveByTitle(title, connection) {
+  const sql =
+    `select * from ${table} ` +
+    `where title = ?`;
+  const values = [title];
   return query(sql, values, connection);
 }
 
@@ -79,6 +97,7 @@ module.exports = {
   createOne,
   retrieveAll,
   retrieveById,
+  retrieveByTitle,
   updateOne,
   removeOne,
 };

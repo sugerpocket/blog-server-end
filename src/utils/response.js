@@ -26,19 +26,17 @@ class ErrorResponse extends Error {
 /**获取错误响应的函数
  * 
  * @param {context} ctx
- * @param {string} status
  * @param {string} stack
  * @param {string} msg
  */
-function error(ctx, status, err, msg) {
-  const stack = err ? err.stack : null;
+function error(ctx, err, msg, status) {
   const end = new Date();
   const { start, userMeta } = ctx.state;
+  ctx.status = status || 400;
   return new ErrorResponse({
     start,
-    status,
     end,
-    stack,
+    err,
     msg,
     data: null,
     userMeta,
@@ -51,17 +49,17 @@ function error(ctx, status, err, msg) {
  * @method create
  * @for ResBody
  * @param {Context} ctx
- * @param {String} status
- * @param {Object} data 
- * @param {String} msg
+ * @param {number} status
+ * @param {object} data 
+ * @param {string} msg
  *
  */
-function create(ctx, status, data, msg) {
+function create(ctx, data, msg, status) {
   const end = new Date();
   const { start, userMeta } = ctx.state;
+  ctx.status = status || 200;
   return new Response({
     start,
-    status,
     end,
     msg,
     data,

@@ -26,16 +26,20 @@
   },
   "homepage": "https://github.com/sugerPocket/sugerpocket-blog#readme",
   "dependencies": {
+    "ajv": "^5.5.1",
+    "ali-oss": "^4.11.2",
     "bluebird": "^3.5.0",
     "co": "^4.6.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.1.1",
     "koa-session": "^5.0.0",
+    "koa-validate": "^1.0.7",
     "koa2": "^2.0.0-alpha.7",
     "md5": "^2.2.1",
     "mysql": "^2.13.0",
-    "pm2": "^2.4.6"
+    "pm2": "^2.4.6",
+    "superagent": "^3.8.1"
   },
   "devDependencies": {
     "babel-register": "^6.24.1",

@@ -1,14 +1,18 @@
 const article = require('../controllers/article.ctrl');
+const { exists, isAuthor, validator, isDuplicated } = require('../middlewares/articles');
 
 const router = require('koa-router')({
   prefix: '/article'
 });
 
 router
-  .get('/all', article.retrieveAll)
+  .all('/:articleId', exists)
+  .get('/', article.retrieveAll)
+  .post('/', validator, isDuplicated, article.createOne)
   .get('/:articleId', article.retrieveOneDetail)
-  .post('/create', article.createOne);
+  .put('/:articleId', validator, isAuthor, article.updateOne)
+  .delete('/:articleId', isAuthor, article.deleteOne);
 
 module.exports = (app) => {
   app.use(router.routes());
-}
+};

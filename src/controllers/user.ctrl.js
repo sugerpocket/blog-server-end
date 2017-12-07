@@ -1,50 +1,59 @@
 const md5 = require('md5');
 const user = require('../models/users.model');
 const res = require('../utils/response');
+const file = require('../services/file.service');
+const Context = require('koa/lib/context');
 
 async function login(ctx, next) {
   let { username, password } = ctx.request.body;
-  let result = null;
+
   password = md5(password);
-  result = await user.retrieveOneByName(username);
+  const result = await user.retrieveOneByName(username);
   if (!result.length)
-    throw res.error(ctx, 'BAD_DATA', null, '用户不存在');
+    throw res.error(ctx, null, '用户不存在');
   else if (result[0].password !== password)
-    throw res.error(ctx, 'BAD_DATA', null, '密码错误');
+    throw res.error(ctx, null, '密码错误');
   else {
     delete result[0].password;
     ctx.session.userMeta = result[0];
-    ctx.body = res.create(ctx, 'OK', result[0], '登陆成功');
+    ctx.body = res.create(ctx, result[0], '登陆成功');
   }
 }
 
 async function register(ctx, next) {
+  const user = ctx.request.body;
+  const result = await user.createOne(user);
 
-  let result = [];
-  result.push(await user.retrieveAll());
-  result.push(await user.retrieveOneById(1));
-  result.push(await user.retrieveOneByName('sugerpocket'));
-
-  ctx.body = res.create(ctx, 'OK', result, 'OK');
-
+  ctx.body = res.create(ctx, result, '注册成功');
 }
 
 async function getAvatar(ctx, next) {
-
+  const { username } = ctx.request.params;
+  try {
+    ctx.body = file.get(`avatars/${uid}`);
+  } catch(e) {
+    throw res.error(ctx, e, '找不到用户头像', 404);
+  }
 }
 
 async function update(ctx, next) {
-  
+  const meta = ctx.request.body;
+  user.updateOne(uid, meta);
+  delete meta.password;
+  throw res.create(ctx, meta, '更新成功');
 }
 
-async function updatePassword(ctx, next) {
-  
+async function updateAvatar(ctx, next) {
+  const { uid } = ctx.session.userMeta;
+  if (ctx.avatar) {
+    file.upload(`avatars/${uid}`);
+  }
 }
 
 module.exports = {
   login,
   register,
   getAvatar,
-  updatePassword,
+  updateAvatar,
   update,
 };

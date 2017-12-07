@@ -12,7 +12,6 @@ function login(request) {
       };
       const res = await request.post(api).send(data);
       expect(res.status).to.equal(400);
-      expect(res.body.status).to.equal('BAD_DATA');
       expect(res.body.data).to.equal(null);
     });
 
@@ -23,7 +22,6 @@ function login(request) {
       };
       const res = await request.post(api).send(data);
       expect(res.status).to.equal(200);
-      expect(res.body.status).to.equal('OK');
     });
   });
 }

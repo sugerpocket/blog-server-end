@@ -9,10 +9,16 @@ module.exports =
   "port": "3002",
   "env": {
     "NODE_ENV": 'development',
-    "DB_USER": "root",
-    "DB_PASSWORD": "dtl19970126",
-    "DB_HOST": "127.0.0.1",
+    "DB_USER": "sugerpocket_test",
+    "DB_PASSWORD": "test",
+    "DB_HOST": "111.230.114.241",
     "DB_PORT": "3306",
-    "DB_NAME": "sugerpocket_test"
+    "DB_NAME": "sugerpocket_test",
+    "OSS": {
+      "BUCKET": "sugerpocket",
+      "REGION": "oss-cn-shenzhen",
+      "ACCESS_KEY_ID": "LTAIBMGo5pouUgG6",
+      "ACCESS_KEY_SECRET": "A5BhaGbP0HjnDeizuF7NC9fa3D5fmi"
+    }
   }
 };

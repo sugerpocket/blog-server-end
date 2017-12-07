@@ -1,10 +1,13 @@
 const Koa = require('koa2');
 const bodyParser = require('koa-bodyparser');
+const Application = require('koa2/lib/application');
 const app = new Koa();
 const { requireAuthentication, loadUser } = require('./auth.config');
 const routers = require('./router.config');
 const errorHandler = require('./error.config');
 const configSession = require('./session.config');
+
+require('koa-validate')(app);
 
 app.env = app.env || 'development';
 
