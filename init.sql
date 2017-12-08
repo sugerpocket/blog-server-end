@@ -23,7 +23,7 @@ create table articles(
   stars int default 0,
   view_times int default 0,
   author_id int not null,
-  FOREIGN KEY (author_id) REFERENCES users(user_id)
+  FOREIGN KEY (author_id) REFERENCES users(user_id) on delete cascade
 );
 
 create table comments(
@@ -34,23 +34,23 @@ create table comments(
   create_time timestamp not null DEFAULT CURRENT_TIMESTAMP,
   content text(200),
   stars int default 0,
-  FOREIGN KEY (article_id) REFERENCES articles(article_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
+  FOREIGN KEY (article_id) REFERENCES articles(article_id) on delete cascade,
+  FOREIGN KEY (user_id) REFERENCES users(user_id) on delete cascade
 );
 
 create table tags(
   user_id int not null,
   tag_name char(12) not null,
   PRIMARY KEY (user_id, tag_name),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
+  FOREIGN KEY (user_id) REFERENCES users(user_id) on delete cascade
 );
 
 create table article_tags(
   article_id int not null,
   user_id int not null,
   tag_name char(12) not null,
-  FOREIGN KEY (article_id) REFERENCES articles(article_id),
-  FOREIGN KEY (user_id, tag_name) REFERENCES tags(user_id, tag_name),
+  FOREIGN KEY (article_id) REFERENCES articles(article_id) on delete cascade,
+  FOREIGN KEY (user_id, tag_name) REFERENCES tags(user_id, tag_name) on delete cascade,
   PRIMARY KEY (article_id, user_id, tag_name)
 );
 

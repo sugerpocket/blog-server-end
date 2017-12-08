@@ -50,8 +50,8 @@ function retrieveOne(user_id, tag_name, connection) {
 function deleteOne(user_id, tag_name, connection) {
   const sql =
     `delete from ${table} ` +
-    `where tag_id = ? and tag_name = ?`;
-  const values = [tag_id, tag_name];
+    `where user_id = ? and tag_name = ?`;
+  const values = [user_id, tag_name];
   return query(sql, values, connection);
 }
 
