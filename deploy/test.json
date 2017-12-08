@@ -1,0 +1,15 @@
+{
+  "apps": [{
+      "name": "sugerpocket.test",
+      "max_memory_restart": "512M",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss SSS",
+      "script": "./src/app.js",
+      "out_file": "/var/log/blog-server-test/app.log",
+      "error_file": "/var/log/blog-server-test/err.log",
+      "port": "3002",
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": "3002"
+      }
+    }]
+}
