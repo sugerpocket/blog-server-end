@@ -1,9 +1,16 @@
 const md5 = require('md5');
 const users = require('../models/users.model');
+const articles = require('../models/articles.model');
+const tags = require('../models/tags.model');
 const res = require('../utils/response');
 const file = require('../services/file.service');
 const Context = require('koa/lib/context');
 
+/**
+ * 登陆接口
+ * @param {Context} ctx 
+ * @param {() => Promise<void>} next 
+ */
 async function login(ctx, next) {
   let { username, password } = ctx.request.body;
 
@@ -28,7 +35,7 @@ async function register(ctx, next) {
 }
 
 async function getAvatar(ctx, next) {
-  const { username } = ctx.request.params;
+  const uid = ctx.params.userId;
   try {
     ctx.body = await file.get(`avatars/${uid}`);
   } catch(e) {
@@ -50,10 +57,28 @@ async function updateAvatar(ctx, next) {
   }
 }
 
+async function getAllArticles(ctx, next) {
+  const uid = ctx.params.userId;
+
+  const result = await articles.retrieveAllByUserId(uid);
+
+  ctx.body = res.create(ctx, result, '获取用户所有文章成功');
+}
+
+async function getAllTags(ctx, next) {
+  const uid = ctx.params.userId;
+
+  const result = await tags.retrieveAllByUserId(uid);
+
+  ctx.body = res.create(ctx, result, '获取用户所有标签成功');
+}
+
 module.exports = {
   login,
   register,
   getAvatar,
   updateAvatar,
   update,
+  getAllArticles,
+  getAllTags,
 };

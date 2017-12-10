@@ -12,6 +12,15 @@ async function isDuplicated(ctx, next) {
   return next();
 }
 
+async function exists(ctx, next) {
+  const { userId } = ctx.params;
+
+  const result = await users.retrieveOneById(userId);
+  if (!result.length) throw res.error(ctx, null, '不存在该用户');
+
+  return next();
+}
+
 const validator = validate('body', {
   required: ['username', 'password'],
   properties: {
@@ -41,5 +50,6 @@ const validator = validate('body', {
 
 module.exports = {
   validator,
-  isDuplicated
+  isDuplicated,
+  exists
 };

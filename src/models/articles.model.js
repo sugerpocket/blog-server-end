@@ -36,6 +36,21 @@ function retrieveAll(connection) {
 }
 
 /**
+ * 获取所有 blog 文章的大概信息
+ * @param {Connection} connection
+ * @return {Promise<object[]>} 
+ */
+function retrieveAllByUserId(user_id, connection) {
+  const sql =
+    `select a.article_id, a.title, a.description, a.update_time, a.create_time, ` +
+    `u.user_id as author_id, u.username as author_name, u.nickname as author_nickname ` +
+    `from ${table} a, ${users} u ` + 
+    `where a.author_id = u.user_id and a.author_id = ?`;
+  const values = [user_id];
+  return query(sql, values, connection);
+}
+
+/**
  * 获取一篇 blog 文章的详细内容
  * @param {number} article_id 
  * @param {Connection} connection
@@ -98,6 +113,7 @@ module.exports = {
   retrieveAll,
   retrieveById,
   retrieveByTitle,
+  retrieveAllByUserId,
   updateOne,
   removeOne,
 };
